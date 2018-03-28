@@ -1,0 +1,3 @@
+import { combineReducers } from 'redux';
+
+export default combineReducers({main:(state = {}) => state});
