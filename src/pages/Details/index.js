@@ -45,7 +45,11 @@ class Details extends Component {
     if (!product) return null;
     return (
       <View style={styles.container}>
-        <Image style={styles.image} source={{ uri: product.image }} />
+        <Image
+          style={styles.image}
+          source={{ uri: product.image }}
+          resizeMode="contain"
+        />
         <View style={styles.info}>
           <View style={styles.productInfo}>
             <Text style={styles.name}>{product.name}</Text>
@@ -60,10 +64,16 @@ class Details extends Component {
     );
   };
 
+  renderLoading = () => (
+    <View style={styles.loading}>
+      <ActivityIndicator size="large" color={colors.black} />
+    </View>
+  );
+
   render() {
     const { loading } = this.props.details;
     return loading
-      ? <View> <ActivityIndicator size="large" color={colors.black} /> </View>
+      ? this.renderLoading()
       : this.renderDetails();
   }
 }

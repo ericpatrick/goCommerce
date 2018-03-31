@@ -31,6 +31,7 @@ class ProductsList extends Component {
       <Image
         style={styles.productImage}
         source={{ uri: item.image }}
+        resizeMode="contain"
       />
       <Text style={styles.productName}>{item.name}</Text>
       <Text style={styles.productBrand}>{item.brand}</Text>

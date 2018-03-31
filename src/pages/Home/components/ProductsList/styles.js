@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
   },
   productImage: {
     height: 180,
-    maxWidth: '100%',
   },
   productName: {
     fontSize: 14,
