@@ -5,4 +5,6 @@ export default {
   gray: '#F5F5F5',
   primary: '#FF9696',
   secondary: '#37BEA9',
+
+  transparentWhite: 'rgba(255, 255, 255, .4)',
 };

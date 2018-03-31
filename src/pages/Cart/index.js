@@ -1,19 +1,17 @@
 import React from 'react';
 
 import { View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import TabIcon from 'components/TabIcon';
 
 // import styles from './styles';
 
 const Cart = () => (
-  <View/>
+  <View />
 );
 
 Cart.navigationOptions = {
   title: 'Detalhes',
-  tabBarIcon: ({ tintColor }) => (
-    <Icon name="shopping-cart" size={20} color={tintColor} />
-  ),
+  tabBarIcon: props => <TabIcon name="shopping-cart" {...props} />,
 };
 
 export default Cart;

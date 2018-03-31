@@ -1,44 +1,44 @@
-import React, {Component} from 'react';
+import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as ProductsCreators } from 'store/ducks/products';
+import { general } from 'styles';
 
-import { FlatList, Text, View } from 'react-native';
-
-import styles from './styles';
-import { colors } from 'styles';
+import Menu from './components/Menu';
+import ProductsList from './components/ProductsList';
 
 class Home extends Component {
   static navigationOptions = {
-    title: "GoCommerce",
-    headerTitleStyle: {
-      textAlign: 'center',
-      flex: 1,
-      color: colors.primary,
-    },
+    title: 'GoCommerce',
+    headerTitleStyle: general.headerTitle,
+    headerStyle: general.header,
+  };
+
+  static propTypes = {
+    products: PropTypes.shape({
+      categories: PropTypes.arrayOf(PropTypes.object),
+      productsByCategory: PropTypes.object,
+      loading: PropTypes.object,
+    }).isRequired,
+    initializeHome: PropTypes.func.isRequired,
   };
 
   componentWillMount() {
     this.props.initializeHome();
   }
 
-  renderCategories = ({ item }) => (
-    <View style={styles.titleContainer}>
-      <Text style={styles.title}>{item.title}</Text>
-    </View>
-  );
-
   render() {
-    const { categories } = this.props.products;
-    return(
-      <View style={styles.container}>
-        <FlatList
-            data={categories}
-            renderItem={this.renderCategories}
-            keyExtractor={item => String(item.id)}
-            horizontal
-        />
-      </View>
+    const { categories, productsByCategory, loading } = this.props.products;
+    if (categories.length === 0) return null;
+
+    const [{ id }] = categories.filter(x => x.selected);
+    const products = productsByCategory.get(id);
+    return (
+      <Fragment>
+        <Menu categories={categories} />
+        <ProductsList products={products} loading={loading.products} />
+      </Fragment>
     );
   }
 }

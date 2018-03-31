@@ -10,16 +10,21 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
+    justifyContent: 'center',
+    marginHorizontal: metrics.basePadding,
+  },
+  titleContainerSelected: {
     borderBottomWidth: 5,
     borderBottomColor: colors.white,
-    justifyContent: 'center',
-    paddingHorizontal: metrics.basePadding,
   },
   title: {
     fontSize: 12,
     fontWeight: 'bold',
+    color: colors.transparentWhite,
+  },
+  titleSelected: {
     color: colors.white,
-  }
+  },
 });
 
 export default styles;

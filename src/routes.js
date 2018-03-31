@@ -1,10 +1,11 @@
 import React from 'react';
 import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Home from 'pages/Home';
 import Details from 'pages/Details';
 import Cart from 'pages/Cart';
+
+import TabIcon from 'components/TabIcon';
 
 import { colors } from 'styles';
 
@@ -18,9 +19,7 @@ const Routes = TabNavigator({
       initialRouteName: 'Home',
     }),
     navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (
-        <Icon name="home" size={20} color={tintColor} />
-      ),
+      tabBarIcon: props => <TabIcon name="home" {...props} />,
     },
   },
 }, {
@@ -34,7 +33,8 @@ const Routes = TabNavigator({
     inactiveTintColor: colors.gray,
     style: {
       backgroundColor: colors.white,
-    }
+      height: 54,
+    },
   },
 });
 

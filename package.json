@@ -6,9 +6,13 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
+  "bin": {
+    "eslint": "./bin/eslint"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "color": "^3.0.0",
+    "numeral": "^2.0.6",
     "prop-types": "^15.6.0",
     "react": "16.2.0",
     "react-native": "0.53.3",
