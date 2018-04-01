@@ -30,7 +30,7 @@ class Home extends Component {
 
   render() {
     const { categories, productsByCategory, loading } = this.props.products;
-    if (categories.length === 0) return null;
+    if ((categories && categories.length === 0) || !categories || !productsByCategory) return null;
 
     const [{ id }] = categories.filter(x => x.selected);
     const products = productsByCategory.get(id);

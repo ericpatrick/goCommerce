@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { View, Image, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
+import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as DetailsCreators } from 'store/ducks/details';
+import { Creators as CartCreators } from 'store/ducks/cart';
 
-import numeral from 'numeral';
+import Helpers from 'helpers';
 import { colors, general } from 'styles';
 
 import styles from './styles';
@@ -23,12 +25,18 @@ class Details extends Component {
           id: PropTypes.number,
         }),
       }),
+      navigate: PropTypes.func.isRequired,
+      dispatch: PropTypes.func.isRequired,
     }).isRequired,
     getProduct: PropTypes.func.isRequired,
     details: PropTypes.shape({
       product: PropTypes.object,
       loading: PropTypes.boolean,
     }).isRequired,
+    cart: PropTypes.shape({
+      purchaseList: PropTypes.arrayOf(PropTypes.object),
+    }).isRequired,
+    addToCart: PropTypes.func.isRequired,
   };
 
   static defaultProps = {};
@@ -39,6 +47,36 @@ class Details extends Component {
     const { id } = this.props.navigation.state.params;
     this.props.getProduct(id);
   }
+
+  sendToCart = (product) => {
+    const { purchaseList } = this.props.cart;
+    const listedProduct = purchaseList.find(prod => prod.id === product.id);
+    const [chosenProduct, index] = listedProduct
+      ? [
+        {
+          ...listedProduct,
+          amount: String(parseInt(listedProduct.amount, 10) + 1),
+        },
+        purchaseList.indexOf(listedProduct),
+      ]
+      : [
+        {
+          ...product,
+          amount: '1',
+        },
+        -1,
+      ];
+    this.props.addToCart(chosenProduct, index);
+
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Home' }),
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
+    this.props.navigation.navigate('Cart');
+  };
 
   renderDetails = () => {
     const { product } = this.props.details;
@@ -55,9 +93,9 @@ class Details extends Component {
             <Text style={styles.name}>{product.name}</Text>
             <Text style={styles.brand}>{product.brand}</Text>
           </View>
-          <Text style={styles.price}>{numeral(product.price).format('$0,0.00')}</Text>
+          <Text style={styles.price}>{Helpers.getCurrency(product.price)}</Text>
         </View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => this.sendToCart(product)} >
           <Text style={styles.buttonLabel}>Adicionar ao carrinho</Text>
         </TouchableOpacity>
       </View>
@@ -78,6 +116,12 @@ class Details extends Component {
   }
 }
 
-const mapStateToProps = state => ({ details: state.details });
-const mapDispatchToProps = dispatch => bindActionCreators(DetailsCreators, dispatch);
+const mapStateToProps = state => ({
+  details: state.details,
+  cart: state.cart,
+});
+const mapDispatchToProps = dispatch => bindActionCreators({
+  ...DetailsCreators,
+  ...CartCreators,
+}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Details);

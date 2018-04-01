@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
+    marginTop: metrics.baseMargin,
   },
   listContainer: {
     width: '100%',
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
   columnContainer: {
     marginHorizontal: metrics.baseMargin * 2,
     justifyContent: 'space-between',
-    paddingTop: 20,
+    paddingTop: metrics.basePadding,
   },
   productContanier: {
     ...general.box,

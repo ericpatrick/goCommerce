@@ -7,7 +7,8 @@ import 'numeral/locales';
 import 'config/ReactotronConfig';
 import 'config/DevtoolsConfig';
 
-import store from 'store';
+import { store, persistor } from 'store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 export default class App extends Component {
   constructor() {
@@ -17,7 +18,9 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Routes />
+        <PersistGate loading={null} persistor={persistor}>
+          <Routes />
+        </PersistGate>
       </Provider>
     );
   }

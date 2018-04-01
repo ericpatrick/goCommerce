@@ -23,7 +23,9 @@
     "reactotron-redux": "^2.0.0-alpha.1",
     "reactotron-redux-saga": "^2.0.0-alpha.1",
     "redux": "^3.7.2",
-    "redux-saga": "^0.16.0"
+    "redux-persist": "^5.9.1",
+    "redux-saga": "^0.16.0",
+    "reselect": "^3.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

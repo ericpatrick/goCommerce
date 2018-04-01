@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, FlatList, Image, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
-import numeral from 'numeral';
+import Helpers from 'helpers';
 
 import { colors } from 'styles';
 import styles from './styles';
@@ -35,7 +35,7 @@ class ProductsList extends Component {
       />
       <Text style={styles.productName}>{item.name}</Text>
       <Text style={styles.productBrand}>{item.brand}</Text>
-      <Text style={styles.productPrice}>{numeral(item.price).format('$0,0.00')}</Text>
+      <Text style={styles.productPrice}>{Helpers.getCurrency(item.price)}</Text>
     </TouchableOpacity>
   );
 
