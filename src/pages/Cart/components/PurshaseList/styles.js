@@ -31,10 +31,11 @@ const styles = StyleSheet.create({
   amount: {
     width: 40,
     height: 40,
-    // marginRight: metrics.baseMargin,
+    marginRight: metrics.baseMargin,
     borderWidth: 1,
     borderColor: colors.darkGray,
-    paddingHorizontal: metrics.baseMargin,
+    padding: metrics.baseMargin,
+    textAlign: 'center',
   },
 });
 

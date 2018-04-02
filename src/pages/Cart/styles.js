@@ -9,6 +9,14 @@ const styles = StyleSheet.create({
   listContainer: {
     paddingHorizontal: metrics.basePadding * 2,
     paddingTop: metrics.basePadding * 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  emptyText: {
+    fontSize: 14,
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
   subtotalContainer: {
     height: 100,

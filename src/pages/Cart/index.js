@@ -18,7 +18,10 @@ const Cart = ({ purchaseList, subtotal }) => {
     <View style={styles.container}>
       <Header />
       <View style={styles.listContainer}>
-        <PurchaseList chosenProducts={purchaseList} />
+        { purchaseList.length === 0
+          ? <Text style={styles.emptyText}>Nenhum item adicionado ao carrinho</Text>
+          : <PurchaseList chosenProducts={purchaseList} />
+        }
       </View>
       <View style={styles.subtotalContainer}>
         <Text style={styles.subtotalTitle}>Subtotal</Text>
