@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import Immutable from 'seamless-immutable';
 
 export const Types = {
   ADD_TO_CART: 'cart/ADD_TO_CART',
@@ -6,10 +7,9 @@ export const Types = {
   REMOVE_PRODUCT: 'cart/REMOVE_PRODUCT',
 };
 
-const INITIAL_STATE = {
+const INITIAL_STATE = Immutable({
   purchaseList: [],
-  subtotal: 0,
-};
+});
 
 export default function cart(state = INITIAL_STATE, action) {
   switch (action.type) {

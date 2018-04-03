@@ -1,14 +1,16 @@
+import Immutable from 'seamless-immutable';
+
 export const Types = {
   GET_PRODUCT: 'Details/GET_PRODUCT',
   GET_PRODUCT_SUCCESS: 'Details/GET_PRODUCT_SUCCESS',
   GET_PRODUCT_FAIL: 'Details/GET_PRODUCT_FAIL',
 };
 
-const INITIAL_STATE = {
+const INITIAL_STATE = Immutable({
   product: null,
   loading: false,
   error: '',
-};
+});
 
 export default function details(state = INITIAL_STATE, action) {
   switch (action.type) {
