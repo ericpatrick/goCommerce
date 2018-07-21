@@ -1,50 +1,44 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, FlatList, Image, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, FlatList, ActivityIndicator } from 'react-native';
 import { withNavigation } from 'react-navigation';
-
-import Helpers from 'helpers';
-
 import { colors } from 'styles';
+
+import ProductItem from './components/ProductItem';
 import styles from './styles';
 
 class ProductsList extends Component {
   static propTypes = {
     products: PropTypes.arrayOf(PropTypes.object),
-    loading: PropTypes.bool.isRequired,
+    loading: PropTypes.bool,
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
-    }).isRequired,
+    }),
   };
 
   static defaultProps = {
     products: [],
+    loading: false,
+    navigation: {
+      navigate: () => {},
+    },
   };
 
   static state = {};
 
-  renderProduct = ({ item }) => (
-    <TouchableOpacity
-      style={styles.productContanier}
-      onPress={() => this.props.navigation.navigate('Details', { id: item.id })}
-    >
-      <Image
-        style={styles.productImage}
-        source={{ uri: item.image }}
-        resizeMode="contain"
-      />
-      <Text style={styles.productName}>{item.name}</Text>
-      <Text style={styles.productBrand}>{item.brand}</Text>
-      <Text style={styles.productPrice}>{Helpers.getCurrency(item.price)}</Text>
-    </TouchableOpacity>
-  );
+  getItemKey = item => String(item.id);
+
+  goToDetails = id => this.props.navigation.navigate('Details', { id });
+
+  renderProduct = ({ item }) => (<ProductItem data={item} selectProduct={this.goToDetails} />);
+  // renderCategories = ({ item }) => (<Category data={item} />);
 
   renderList = products => (
     <View style={styles.listContainer}>
       <FlatList
         data={products}
         renderItem={this.renderProduct}
-        keyExtractor={item => String(item.id)}
+        keyExtractor={this.getItemKey}
         numColumns={2}
         columnWrapperStyle={styles.columnContainer}
       />
@@ -63,5 +57,7 @@ class ProductsList extends Component {
     );
   }
 }
+
+export { ProductsList as ProductsListComponent };
 
 export default withNavigation(ProductsList);
