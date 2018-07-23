@@ -47,13 +47,13 @@ export const Creators = {
     type: Types.GET_PRODUCT_SUCCESS,
     payload: {
       product,
-    }
+    },
   }),
 
   getProductFail: error => ({
     type: Types.GET_PRODUCT_FAIL,
     payload: {
       error,
-    }
+    },
   }),
-}
+};
