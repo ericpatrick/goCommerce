@@ -32,6 +32,7 @@ export default function products(state = INITAIL_STATE, action) {
           ...state.loading,
           categories: false,
         },
+        error: '',
       };
     case Types.GET_CATEGORIES_FAIL:
       return {
@@ -89,7 +90,7 @@ export const Creators = {
   }),
 
   getCategoriesError: error => ({
-    type: Types.GET_CATEGORIES_SUCCESS,
+    type: Types.GET_CATEGORIES_FAIL,
     payload: {
       error,
     },

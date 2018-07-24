@@ -18,11 +18,13 @@ export default function details(state = INITIAL_STATE, action) {
       return {
         ...state,
         loading: true,
+        error: '',
       };
     case Types.GET_PRODUCT_SUCCESS:
       return {
         product: action.payload.product,
         loading: false,
+        error: '',
       };
     case Types.GET_PRODUCT_FAIL:
       return {

@@ -11,6 +11,13 @@ const INITIAL_STATE = Immutable({
   purchaseList: [],
 });
 
+function addProduct(array, payload) {
+  const { index, product } = payload;
+  const newArray = [...array];
+  newArray.splice(index, 0, product);
+  return newArray;
+}
+
 export default function cart(state = INITIAL_STATE, action) {
   switch (action.type) {
     case Types.ADD_TO_CART:
@@ -18,10 +25,7 @@ export default function cart(state = INITIAL_STATE, action) {
         ...state,
         purchaseList: action.payload.index === -1
           ? [...state.purchaseList, action.payload.product]
-          : state.purchaseList.map((prod, index) => (index === action.payload.index
-            ? action.payload.product
-            : prod)),
-        loading: true,
+          : addProduct(state.purchaseList, action.payload),
       };
     case Types.REMOVE_PRODUCT:
       return {
